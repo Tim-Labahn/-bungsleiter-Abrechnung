@@ -1,5 +1,4 @@
 <template>
-  <img class="backgroundImage" src="SportButler_Logo.png" />
   <div class="formular">
     <p style="text-align: left" class="registered association">{{ registeredAssociation }}</p>
     <p style="font-size: 30px; text-align: center" class="ueberschrift">
