@@ -51,42 +51,47 @@
           </td>
           <td><b>Gesamtstunden*</b></td>
           <td>
-            <button @click="entries.push({ uebungsleiter: '', sportArt: '', gruppe: '', alter: -1, stunden: 0 })" type="button" class="NewLineButton">
-              +
-            </button>
+            <button @click="addEmptyEntry()" type="button" class="NewLineButton">+</button>
+            <button @click="entries = []" type="button" class="NewLineButton">↻</button>
           </td>
         </tr>
       </thead>
-      <tbody v-for="entry in entries">
+      <tbody v-for="(entry, index) in entries" :key="entry.id">
         <tr :class="entry">
           <td>
-            <input type="text" placeholder="" required />
+            <input type="text" placeholder="" required v-model="entry.uebungsleiter" />
           </td>
           <td>
-            <input type="text" placeholder="" required />
+            <input type="text" placeholder="" required v-model="entry.gruppe" />
           </td>
           <td>
-            <select name="age" id="age-select" style="width: 100%">
+            <select name="age" id="age-select" style="width: 100%" v-model="entry.alter">
               <option value="">--Please choose an option--</option>
               <option value="u18">Unter 18</option>
               <option value="ü18">Über 18</option>
             </select>
           </td>
           <td>
-            <input type="number" placeholder="" required />
+            <input type="number" required v-model="entry.stunden" @input="hoursTogether()" />
           </td>
 
-          <td><button @click="entries.splice(entry, 1)" type="button" class="DelLineButton">-</button></td>
+          <td>
+            <!-- <button @click="entries.pushs" type="button" class="confirm">✓</button> -->
+            <button @click="entries.splice(index, 1)" type="button" class="DelLineButton">-</button>
+          </td>
         </tr>
       </tbody>
     </table>
     <table class="feetTable" style="border: 4px solid #213547; width: 100%">
       <tr>
-        <td colspan="2">
+        <td colspan="3" style="width: 63.5%">
           <p><b>* Reine Erwachsenengruppen/-stunden bitte seperat auflisten! (Extra-Zeile)</b></p>
         </td>
-        <td colspan="2">
+        <td>
           <b>Summe:</b>
+        </td>
+        <td>
+          <input type="number" :value="hoursTogetherNumber" style="width: 73.5%" disabled />
         </td>
       </tr>
     </table>
@@ -97,7 +102,7 @@
       Lizenzausstellung) geleistet wurden, dass die zu erwartenden Zuschüsse gemäß den
       <b>
         Richtlinien des Kreises Segeberg für die Gewährung von zuschüssen an Sportvereine im kreis Segeberg zur entschädigung anerkannter
-        Übungsleiter*innen [...]w
+        Übungsleiter*innen [...]
       </b>
       vom 11.02.2020 verwendet werden und an die Übungsleiter*innen ausgezahlt werden. die verwendung der zuschüsse können wir gegebenenfalls über
       Trainingspläne, auszahlungsbelege, arbeitsverträge und änlichesnachweisen.
@@ -109,7 +114,8 @@
 import { ref } from 'vue';
 const currentDate = new Date();
 const registeredAssociation = ref('Kreissportverband Segeberg e.V');
-
+const idNumber = ref(0);
+const hoursTogetherNumber = ref(0);
 const entries = ref<
   {
     uebungsleiter: string;
@@ -117,11 +123,23 @@ const entries = ref<
     gruppe: string;
     alter: number;
     stunden: number;
-  }[][]
+    id: number;
+  }[]
 >([]);
 
+function hoursTogether() {
+  hoursTogetherNumber.value = 0;
+  for (let i = 0; i < entries.value.length; i++) {
+    hoursTogetherNumber.value += entries.value[i].stunden;
+  }
+}
+
+function addEmptyEntry() {
+  entries.value.push({ uebungsleiter: '', sportArt: '', gruppe: '', alter: 0, stunden: 0, id: idNumber.value });
+  idNumber.value++;
+}
+addEmptyEntry();
 function checkYear() {
-  console.log(currentDate.getMonth());
   if (currentDate.getMonth() + 1 <= 7) {
     return currentDate.getFullYear() - 1;
   } else {
@@ -135,15 +153,8 @@ td input {
   border: 1px solid #213547;
   width: 100%;
 }
-.NewLineButton {
-  height: 25px;
-  width: 30px;
-  background-color: #213547;
-  color: #ffffff;
-  border: 1px solid #213547;
-  border-radius: 20px 20px 20px 20px;
-}
-.DelLineButton {
+
+button {
   height: 25px;
   width: 30px;
   background-color: #213547;
