@@ -9,6 +9,24 @@ body {
   line-height: 1.5;
   font-weight: 400;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-repeat: no-repeat;
+  background-position: top;
+  overflow-x: hidden;
+}
+.backgroundImage {
+  opacity: 20%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+.headImage {
+  position: absolute;
+  left: 50%;
+  top: 0%;
+  transform: translateX(-50%);
+  z-index: -1;
 }
 
 h1 {
