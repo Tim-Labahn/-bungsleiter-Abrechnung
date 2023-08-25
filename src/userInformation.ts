@@ -9,23 +9,26 @@ type User = {
   Age: number;
   Gender: string;
   Passwort: string;
+  Email: string;
 };
 
 export const logedInUserID = ref(0);
 
 export const users = ref<User[]>([]);
 
-let localUsers = JSON.parse(localStorage.getItem('Users')!);
-console.log({ localUsers });
+localStorage.setItem('LocalUsers', 'd');
+// let localUsers = JSON.parse(localStorage.getItem('LocalUsers')!);
 
 export function reloadUsers() {
-  for (let i = 0; i <= localUsers.length + 10; i++) {
-    console.log('test');
+  for (let i = 0; i <= localUsers.length; i++) {
+    users.value.push(localUsers[i]);
+    console.log('user push');
+  }
+  console.log('users', users.value);
+}
+
+export function filterForEmail(input: string) {
+  if (users.value.find(user => user.Email === input)) {
+    console.log('idk ...');
   }
 }
-/*
-localStorage.setItem('test', JSON.stringify([37, { a: 5 }]));
-let test = JSON.parse(localStorage.getItem('test')!);
-console.log(test);
-// localStorage.clear();
-*/

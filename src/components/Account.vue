@@ -15,13 +15,13 @@
     <div style="margin-left: 20px">
       {{ reloadUsers() }}
       <br />
-      User Name: {{ users.find(user => user.ID === logedInUserID)?.Name }}
+      User Name: 
       <br />
-      Age:{{ users.find(user => user.ID === logedInUserID)[0]?.Name }}
+      Age:{{ users.find(user => user.ID === logedInUserID)?.Name }}
       <br />
-      Gender:
+      Gender:{{ users.find(user => user.ID === logedInUserID)?.Gender }}
       <br />
-      Passwort:
+      Passwort:{{ users.find(user => user.ID === logedInUserID)?.Passwort }}
       <br />
     </div>
   </div>
@@ -32,5 +32,9 @@ import { users, logedInUserID, reloadUsers } from '../userInformation';
 
 localStorage.setItem('Users', JSON.stringify(users.value));
 let Users = JSON.parse(localStorage.getItem('Users')!);
-console.log(Users);
+
+let UserName= localStorage.getItem('Users')
+// localStorage.getItem(key)
+
+console.log(UserName);
 </script>

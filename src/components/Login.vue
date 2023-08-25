@@ -16,7 +16,8 @@
       <p>Bitte ihre Email und password angeben</p>
       <form @submit.prevent="loginStep = 70">
         <div>
-          <input v-model="userLoginEmail" id="Name" type="email" placeholder="Email" required />
+          <input v-model="userLoginEmail" id="Name" type="email" placeholder="Email" pattern=""  required />  
+          
         </div>
         <div>
           <input v-model="userLoginPassword" type="password" placeholder="Password" required />
@@ -25,7 +26,6 @@
       </form>
       <button @click="loginStep = 1" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Neuen Account erstellen</button>
     </div>
-
     <div v-if="loginStep === 1">
       <h3>SportButler-Konto ersellen</h3>
       <p>Bitte den Namen eingeben</p>
@@ -78,10 +78,10 @@
         <h3>Starkes Passwort erstllen</h3>
         <p>Bitte ein starkes password aus buchstaben, Zahlen und sonderzeichen erstllen</p>
         <div>
-          <input v-model="newuserPasswort" id="Password" type="password" placeholder="Password" required />
+          <input v-model="newuserPasswort" id="Password" type="password" placeholder="Password" min="8" max="20" required />
         </div>
         <div>
-          <input type="password" placeholder="Bestätiigen" required />
+          <input type="password" placeholder="Bestätiigen" required :pattern="newuserPasswort"/>
         </div>
         <button type="submit" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Weiter</button>
       </form>
@@ -114,7 +114,7 @@ import { ref } from 'vue';
 import { users, logedInUserID } from '../userInformation';
 
 const loginStep = ref(0);
-
+const date =ref(new Date)
 const userLoginEmail = ref('');
 const userLoginPassword = ref('');
 
@@ -124,15 +124,14 @@ const newuserLastName = ref('');
 const newuserDay = ref<number>(0);
 const newuserMonth = ref<number>(0);
 const newuserYear = ref<number>(0);
-const newuserAge = ref<number>(0);
+const newuserAge = ref<number>( date.value.getFullYear()- newuserYear.value);
 const newuserGender = ref('');
 const newuserPasswort = ref<string>('');
 const newuserNummer = ref<number>(0);
 const newuserEMail = ref<string>('');
 
 function createUser() {
-  console.log('user was created');
-  localStorage.setItem(newuserID.toString(), JSON.stringify([37, { a: 5 }]));
+  if (newuserYear.value< date.value.getFullYear() )
   users.value.push({
     ID: newuserID.value,
     Name: newuserName.value + '' + newuserLastName.value,
@@ -142,7 +141,9 @@ function createUser() {
     Age: +newuserAge.value ?? 0,
     Gender: newuserGender.value,
     Passwort: newuserPasswort.value ?? '',
+    Email: newuserEMail.value ?? ''
   });
-  console.log(users.value[0]);
+  localStorage.setItem("Users", JSON.stringify(users.value));
+  console.log(localStorage.getItem("Users"));
 }
 </script>

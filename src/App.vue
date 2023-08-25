@@ -70,8 +70,6 @@ a {
   font-size: 17px;
 }
 a:hover {
-  /* background-color: #172531; */
-  /* background-color: #213547; */
   background-color: #2a455c;
   user-select: none;
 }
