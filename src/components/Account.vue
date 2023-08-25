@@ -15,9 +15,9 @@
     <div style="margin-left: 20px">
       {{ reloadUsers() }}
       <br />
-      User Name: {{ users.filter(user => user.ID === logedInUserID) }}
+      User Name: {{ users.find(user => user.ID === logedInUserID)?.Name }}
       <br />
-      Age:
+      Age:{{ users.find(user => user.ID === logedInUserID)[0]?.Name }}
       <br />
       Gender:
       <br />

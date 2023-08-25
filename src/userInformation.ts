@@ -16,14 +16,13 @@ export const logedInUserID = ref(0);
 export const users = ref<User[]>([]);
 
 let localUsers = JSON.parse(localStorage.getItem('Users')!);
-console.log(localUsers);
+console.log({ localUsers });
 
 export function reloadUsers() {
-  for (let i = 0; i < localUsers.lenght + 10; i++) {
+  for (let i = 0; i <= localUsers.length + 10; i++) {
     console.log('test');
   }
 }
-
 /*
 localStorage.setItem('test', JSON.stringify([37, { a: 5 }]));
 let test = JSON.parse(localStorage.getItem('test')!);
