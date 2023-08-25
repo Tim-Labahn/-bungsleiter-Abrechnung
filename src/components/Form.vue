@@ -171,11 +171,6 @@ const entries = ref<
   }[]
 >([]);
 
-localStorage.setItem('test', JSON.stringify([37, { a: 5 }]));
-let test = JSON.parse(localStorage.getItem('test')!);
-console.log(test);
-// localStorage.clear();
-
 watch(entries, checkHours, { deep: true });
 function checkHours() {
   hoursTogether();

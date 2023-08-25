@@ -97,7 +97,7 @@
       </form>
     </div>
     <div v-if="loginStep === 5">
-      <form @submit.prevent="createUser">
+      <form @submit.prevent="createUser(), (logedInUserID = newuserID)">
         <h3>E-Mail</h3>
         <p>Bitte bestätigen sie ihre Email</p>
         <div>
@@ -111,10 +111,14 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { users } from '../userInformation';
+import { users, logedInUserID } from '../userInformation';
 
 const loginStep = ref(0);
 
+const userLoginEmail = ref('');
+const userLoginPassword = ref('');
+
+const newuserID = ref(+Math.random().toString().substring(2));
 const newuserName = ref('');
 const newuserLastName = ref('');
 const newuserDay = ref<number>(0);
@@ -128,10 +132,10 @@ const newuserEMail = ref<string>('');
 
 function createUser() {
   console.log('user was created');
-  localStorage.setItem(JSON.stringify([37, { a: 5 }]));
+  localStorage.setItem(newuserID.toString(), JSON.stringify([37, { a: 5 }]));
   users.value.push({
-    ID: +Math.random().toString().substring(2),
-    Name: newuserName.value + newuserLastName.value,
+    ID: newuserID.value,
+    Name: newuserName.value + '' + newuserLastName.value,
     Day: +newuserDay.value,
     Month: +newuserMonth.value ?? 0,
     Year: +newuserYear.value ?? 0,

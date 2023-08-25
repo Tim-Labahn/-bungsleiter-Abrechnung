@@ -13,6 +13,7 @@
   >
     <h2 style="text-align: center">Account</h2>
     <div style="margin-left: 20px">
+      {{ reloadUsers() }}
       <br />
       User Name: {{ users.filter(user => user.ID === logedInUserID) }}
       <br />
@@ -27,5 +28,9 @@
 </template>
 
 <script lang="ts" setup>
-import { users, logedInUserID } from '../userInformation';
+import { users, logedInUserID, reloadUsers } from '../userInformation';
+
+localStorage.setItem('Users', JSON.stringify(users.value));
+let Users = JSON.parse(localStorage.getItem('Users')!);
+console.log(Users);
 </script>

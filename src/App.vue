@@ -29,13 +29,13 @@
     <div v-if="route === 'home'">
       <Home></Home>
     </div>
-    <div v-else-if="route === 'form'">
+    <div v-if="route === 'form'">
       <Form></Form>
     </div>
-    <div v-else-if="route === 'login'">
+    <div v-if="route === 'login'">
       <Login></Login>
     </div>
-    <div v-else-if="route === 'account'">
+    <div v-if="route === 'account'">
       <Account></Account>
     </div>
   </div>
