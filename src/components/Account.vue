@@ -13,28 +13,49 @@
   >
     <h2 style="text-align: center">Account</h2>
     <div style="margin-left: 20px">
-      {{ reloadUsers() }}
       <br />
-      User Name: 
+      User Name: {{ logedInUserData!.Name }}
       <br />
-      Age:{{ users.find(user => user.ID === logedInUserID)?.Name }}
+      Age: {{ logedInUserData!.Age }}
       <br />
-      Gender:{{ users.find(user => user.ID === logedInUserID)?.Gender }}
+      Gender: {{ logedInUserData!.Gender }}
       <br />
-      Passwort:{{ users.find(user => user.ID === logedInUserID)?.Passwort }}
+      Passwort: {{ logedInUserData!.Passwort }}
       <br />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { users, logedInUserID, reloadUsers } from '../userInformation';
+import { ref } from 'vue';
+import { UserType, users, logedInUserID } from '../userInformation';
 
-localStorage.setItem('Users', JSON.stringify(users.value));
-let Users = JSON.parse(localStorage.getItem('Users')!);
+// import { logedInUserID } from '../userInformation';
 
-let UserName= localStorage.getItem('Users')
-// localStorage.getItem(key)
+// let localUsers = JSON.parse(localStorage.getItem('LocalUsers')!); // das darf ich ja leider net :(
+// let localUserList = localStorage.getItem('LocalUserList');
+let logedInUserData = ref<UserType>();
 
-console.log(UserName);
+// if (localUserList  /*!== null*/) {
+//   localUserList = JSON.parse(localUserList);
+//   logedInUserData = JSON.parse(localUserList!).find(user => user.Email === input);
+//   console.log(localUserList);
+// }
+
+if (users) {
+  logedInUserData.value = users.value.find(user => user.ID === logedInUserID.value);
+}
+
+// localUserList.find(user => user.Email === input);
+// >(localUserList.find(user => user.Email === input));
+
+// console.log(logedInUserData.value);
+/*
+if (typeof localUserList === 'string') {
+  localUserList = JSON.parse(localUserList);
+  if (localUserList !== null) {
+    let logedInUserData = ref<Array<[]>>(localUserList.find(user => user.Email === input));
+  }
+}
+*/
 </script>

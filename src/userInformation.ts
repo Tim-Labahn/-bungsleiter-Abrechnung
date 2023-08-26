@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 
-type User = {
+export type UserType = {
   ID: number;
   Name: string;
   Day: number;
@@ -12,23 +12,34 @@ type User = {
   Email: string;
 };
 
-export const logedInUserID = ref(0);
+export const logedInUserID = ref(80085);
+export const users = ref<UserType[]>([]);
+users.value.push();
 
-export const users = ref<User[]>([]);
+users.value.push({
+  ID: 80085,
+  Name: 'Tim Labahn',
+  Day: 6,
+  Month: 5,
+  Year: 2006,
+  Age: 17,
+  Gender: 'Male',
+  Passwort: 'Sommer2023!',
+  Email: 'Mail@timlabahn.de',
+});
+users.value.push({
+  ID: 10000,
+  Name: 'New User',
+  Day: 1,
+  Month: 1,
+  Year: 1970,
+  Age: 53,
+  Gender: 'Male',
+  Passwort: 'Passwort',
+  Email: 'Test@timlabahn.de',
+});
 
-localStorage.setItem('LocalUsers', 'd');
-// let localUsers = JSON.parse(localStorage.getItem('LocalUsers')!);
+localStorage.setItem('LocalUserList', JSON.stringify(users.value));
 
-export function reloadUsers() {
-  for (let i = 0; i <= localUsers.length; i++) {
-    users.value.push(localUsers[i]);
-    console.log('user push');
-  }
-  console.log('users', users.value);
-}
-
-export function filterForEmail(input: string) {
-  if (users.value.find(user => user.Email === input)) {
-    console.log('idk ...');
-  }
-}
+// let LocalUsers = JSON.parse(localStorage.getItem('Users')!);
+// let activUser = LocalUsers.find(user => user.ID === logedInUserID);
