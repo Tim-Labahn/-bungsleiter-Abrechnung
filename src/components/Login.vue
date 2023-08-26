@@ -14,10 +14,9 @@
     <div v-if="loginStep === 0">
       <h3>Anmelden</h3>
       <p>Bitte ihre Email und password angeben</p>
-      <form @submit.prevent="loginStep = 70">
+      <form @submit.prevent="checkIfExist()">
         <div>
-          <input v-model="userLoginEmail" id="Name" type="email" placeholder="Email" pattern=""  required />  
-          
+          <input v-model="userLoginEmail" id="Name" type="email" placeholder="Email" required />
         </div>
         <div>
           <input v-model="userLoginPassword" type="password" placeholder="Password" required />
@@ -44,8 +43,13 @@
       <p>Geben Sie ihr Geburtsdatum und ihr geschlecht ein.</p>
       <form @submit.prevent="loginStep = 3">
         <div>
-          <input v-model="newuserDay" type="number" placeholder="Tag" required />
-          <select v-model="newuserMonth" id="age-Monat" required>
+          <input
+            type="date"
+            style="width: 250px; border-radius: 5px; background-color: whitesmoke; letter-spacing: 4px; text-align: center"
+            v-model="newuserBirthDay"
+          />
+          <!-- <input v-model="newuserDay" type="number" placeholder="Tag" required /> -->
+          <!-- <select v-model="newuserMonth" id="age-Monat" required>
             <option value="">Monat</option>
             <option value="1">Januar</option>
             <option value="2">Februar</option>
@@ -59,8 +63,8 @@
             <option value="10">October</option>
             <option value="11">November</option>
             <option value="12">December</option>
-          </select>
-          <input v-model="newuserYear" type="number" placeholder="Jahr" required />
+          </select> -->
+          <!-- <input v-model="newuserYear" type="number" placeholder="Jahr" required /> -->
         </div>
         <div>
           <select v-model="newuserGender" id="gender" required>
@@ -81,7 +85,7 @@
           <input v-model="newuserPasswort" id="Password" type="password" placeholder="Password" min="8" max="20" required />
         </div>
         <div>
-          <input type="password" placeholder="Bestätiigen" required :pattern="newuserPasswort"/>
+          <input type="password" placeholder="Bestätiigen" required :pattern="newuserPasswort" />
         </div>
         <button type="submit" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Weiter</button>
       </form>
@@ -97,7 +101,7 @@
       </form>
     </div>
     <div v-if="loginStep === 5">
-      <form @submit.prevent="createUser(), (logedInUserID = newuserID)">
+      <form @submit.prevent="createUser(), (logedInUserID = newuserID), (loginStep = 6)">
         <h3>E-Mail</h3>
         <p>Bitte bestätigen sie ihre Email</p>
         <div>
@@ -105,6 +109,10 @@
         </div>
         <button type="submit" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Weiter</button>
       </form>
+    </div>
+    <div v-if="loginStep === 6">
+      <h3>Angemeldet</h3>
+      <p>Sie sind nun angemeldet, und können diese seite verlassen</p>
     </div>
   </div>
 </template>
@@ -114,36 +122,68 @@ import { ref } from 'vue';
 import { users, logedInUserID } from '../userInformation';
 
 const loginStep = ref(0);
-const date =ref(new Date)
+// const date = ref(new Date());
 const userLoginEmail = ref('');
 const userLoginPassword = ref('');
 
 const newuserID = ref(+Math.random().toString().substring(2));
 const newuserName = ref('');
 const newuserLastName = ref('');
-const newuserDay = ref<number>(0);
-const newuserMonth = ref<number>(0);
-const newuserYear = ref<number>(0);
-const newuserAge = ref<number>( date.value.getFullYear()- newuserYear.value);
+const newuserBirthDay = ref<number>(0);
 const newuserGender = ref('');
 const newuserPasswort = ref<string>('');
 const newuserNummer = ref<number>(0);
 const newuserEMail = ref<string>('');
 
 function createUser() {
-  if (newuserYear.value< date.value.getFullYear() )
+  loadUserData();
   users.value.push({
     ID: newuserID.value,
-    Name: newuserName.value + '' + newuserLastName.value,
-    Day: +newuserDay.value,
-    Month: +newuserMonth.value ?? 0,
-    Year: +newuserYear.value ?? 0,
-    Age: +newuserAge.value ?? 0,
+    Name: newuserName.value + ' ' + newuserLastName.value,
+    Birthday: newuserBirthDay.value,
     Gender: newuserGender.value,
     Passwort: newuserPasswort.value ?? '',
-    Email: newuserEMail.value ?? ''
+    Email: newuserEMail.value ?? '',
   });
-  localStorage.setItem("Users", JSON.stringify(users.value));
-  console.log(localStorage.getItem("Users"));
+  loadLocalStorage();
+}
+function checkIfExist() {
+  loadUserData();
+  console.log('User Mail', userLoginEmail.value);
+  console.log('User ', users.value);
+  if (users.value.find(user => user.Email === userLoginEmail.value)) {
+    console.log('Email does exist');
+    // return true;
+    if (users.value.find(user => user.Email === userLoginEmail.value)?.Passwort === userLoginPassword.value) {
+      console.log('Password is a match');
+      logedInUserID.value = users.value.find(user => user.Email === userLoginEmail.value)?.ID;
+      loginStep.value = 6;
+    } else {
+      console.log('Password is not a match');
+    }
+  } else {
+    console.log('Email does not exist');
+  }
+  loadLocalStorage();
+}
+
+function loadUserData() {
+  if (localStorage.getItem('Users') !== null) {
+    users.value = JSON.parse(localStorage.getItem('Users')!);
+    console.log('loaded1');
+  }
+  console.log('loaded2');
+  loadLocalStorage();
+}
+
+function loadLocalStorage() {
+  localStorage.setItem('Users', JSON.stringify(users.value));
+}
+
+import { UserType } from '../userInformation';
+
+let logedInUserData = ref<UserType>();
+if (users) {
+  logedInUserData.value = users.value.find(user => user.ID === logedInUserID.value);
 }
 </script>
