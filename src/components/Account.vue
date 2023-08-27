@@ -17,9 +17,8 @@
     >
       <p style="margin-left: 10px">Profil 👤</p>
       <p style="margin-left: 10px">Settings ⚙️</p>
-      <p @click="logOutUser = true" style="margin-left: 10px">Logout ⚙️</p>
-
       <p style="margin-left: 10px">Stats ⚙️</p>
+      <p @click="logOutUser = true" style="margin-left: 10px">Logout ⚙️</p>
     </div>
 
     <div v-if="logedInUserID">
@@ -31,15 +30,15 @@
             border-radius: 30px;
             text-align: center;
             width: 500px;
-            height: 400px;
+            height: 200px;
             font-size: larger;
-            text-align: left;
           "
         >
           <h2 style="text-align: center">Account</h2>
-          <div>Are You Sure that you want to log out ?</div>
-          <button @click="logedInUserID = undefined">Fortfahren</button>
-          <button @click="logOutUser = false">Abbrechen</button>
+          <div>Sind sie sicher das sie sich abmelden wollen?</div>
+
+          <button style="border-radius: 5px; background-color: whitesmoke" @click="logedInUserID = undefined">Abmelden</button>
+          <button style="margin-left: 50px; border-radius: 5px; background-color: whitesmoke" @click="logOutUser = false">Abbrechen</button>
         </div>
       </div>
       <div v-if="!logOutUser">
