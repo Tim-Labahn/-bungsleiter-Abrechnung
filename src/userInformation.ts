@@ -9,7 +9,7 @@ export type UserType = {
   Email: string;
 };
 
-export const logedInUserID = ref<number | undefined>(80085);
+export const logedInUserID = ref<number | undefined>();
 export const users = ref<UserType[]>([]);
 
 localStorage.setItem('LocalUserList', JSON.stringify(users.value));

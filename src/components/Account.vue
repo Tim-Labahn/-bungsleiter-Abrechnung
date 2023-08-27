@@ -1,29 +1,70 @@
 <template>
-  <div
-    style="
-      border: 1px solid #213547;
-      background-color: whitesmoke;
-      border-radius: 30px;
-      text-align: center;
-      width: 500px;
-      height: 400px;
-      font-size: larger;
-      text-align: left;
-    "
-  >
-    {{ loadUserData() }}
-    <h2 style="text-align: center">Account</h2>
-    <div style="margin-left: 20px">
-      <br />
-      User Name: {{ logedInUserData?.Name }}
-      <br />
-      Age: {{ logedInUserData?.Birthday.toString().substring(10, 8) }}. {{ logedInUserData?.Birthday.toString().substring(7, 5) }}.
-      {{ logedInUserData?.Birthday.toString().substring(4, 0) }}
-      <br />
-      Gender: {{ logedInUserData?.Gender }}
-      <br />
-      Passwort: {{ logedInUserData?.Passwort }}
-      <br />
+  {{ loadUserData() }}
+  <div>
+    <div
+      style="
+        position: absolute;
+        margin-left: -700px;
+        margin-top: -200px;
+        border: 1px solid #213547;
+        background-color: whitesmoke;
+        border-radius: 30px;
+        text-align: center;
+        width: 200px;
+        height: 800px;
+        font-size: larger;
+        text-align: left;
+      "
+    ></div>
+
+    <div v-if="logedInUserID">
+      <div
+        style="
+          border: 1px solid #213547;
+          background-color: whitesmoke;
+          border-radius: 30px;
+          text-align: center;
+          width: 500px;
+          height: 400px;
+          font-size: larger;
+          text-align: left;
+        "
+      >
+        <h2 style="text-align: center">Account</h2>
+        <div style="margin-left: 20px">
+          <br />
+          User Name: {{ logedInUserData?.Name }}
+          <br />
+          Age: {{ logedInUserData?.Birthday.toString().substring(10, 8) }}. {{ logedInUserData?.Birthday.toString().substring(7, 5) }}.
+          {{ logedInUserData?.Birthday.toString().substring(4, 0) }}
+          <br />
+          Gender: {{ logedInUserData?.Gender }}
+          <br />
+          Passwort: {{ logedInUserData?.Passwort }}
+          <br />
+        </div>
+      </div>
+    </div>
+    <div v-if="!logedInUserID">
+      <div
+        style="
+          border: 1px solid #213547;
+          background-color: whitesmoke;
+          border-radius: 30px;
+          text-align: center;
+          width: 500px;
+          height: 400px;
+          font-size: larger;
+          text-align: left;
+        "
+      >
+        <h2 style="text-align: center">Account</h2>
+        <div style="margin-left: 20px">
+          No User is loged in at the moment.
+          <br />
+          PLease log in to see the informatins of your account.
+        </div>
+      </div>
     </div>
   </div>
 </template>

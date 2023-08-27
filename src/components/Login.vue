@@ -14,7 +14,7 @@
     <div v-if="loginStep === 0">
       <h3>Anmelden</h3>
       <p>Bitte ihre Email und password angeben</p>
-      <form @submit.prevent="checkIfExist()">
+      <form name="Login" @submit.prevent="checkIfExist()">
         <div>
           <input v-model="userLoginEmail" id="Name" type="email" placeholder="Email" required />
         </div>
@@ -25,7 +25,7 @@
       </form>
       <button @click="loginStep = 1" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Neuen Account erstellen</button>
     </div>
-    <div v-if="loginStep === 1">
+    <div name="Register step 1" v-if="loginStep === 1">
       <h3>SportButler-Konto ersellen</h3>
       <p>Bitte den Namen eingeben</p>
       <form @submit.prevent="loginStep = 2">
@@ -38,7 +38,7 @@
         <button type="submit" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Weiter</button>
       </form>
     </div>
-    <div v-if="loginStep === 2">
+    <div name="Register step 2" v-if="loginStep === 2">
       <h3>Allgemeine Informationen</h3>
       <p>Geben Sie ihr Geburtsdatum und ihr geschlecht ein.</p>
       <form @submit.prevent="loginStep = 3">
@@ -48,23 +48,6 @@
             style="width: 250px; border-radius: 5px; background-color: whitesmoke; letter-spacing: 4px; text-align: center"
             v-model="newuserBirthDay"
           />
-          <!-- <input v-model="newuserDay" type="number" placeholder="Tag" required /> -->
-          <!-- <select v-model="newuserMonth" id="age-Monat" required>
-            <option value="">Monat</option>
-            <option value="1">Januar</option>
-            <option value="2">Februar</option>
-            <option value="3">März</option>
-            <option value="4">April</option>
-            <option value="5">Mai</option>
-            <option value="6">Juni</option>
-            <option value="7">Juli</option>
-            <option value="8">August</option>
-            <option value="9">September</option>
-            <option value="10">October</option>
-            <option value="11">November</option>
-            <option value="12">December</option>
-          </select> -->
-          <!-- <input v-model="newuserYear" type="number" placeholder="Jahr" required /> -->
         </div>
         <div>
           <select v-model="newuserGender" id="gender" required>
@@ -77,12 +60,12 @@
         <button type="submit" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Weiter</button>
       </form>
     </div>
-    <div v-if="loginStep === 3">
+    <div name="Register step 3" v-if="loginStep === 3">
       <form @submit.prevent="loginStep = 4">
         <h3>Starkes Passwort erstllen</h3>
         <p>Bitte ein starkes password aus buchstaben, Zahlen und sonderzeichen erstllen</p>
         <div>
-          <input v-model="newuserPasswort" id="Password" type="password" placeholder="Password" min="8" max="20" required />
+          <input v-model="newuserPasswort" id="Password" type="password" placeholder="Password" minlength="8" maxlength="20" required />
         </div>
         <div>
           <input type="password" placeholder="Bestätiigen" required :pattern="newuserPasswort" />
@@ -90,17 +73,18 @@
         <button type="submit" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Weiter</button>
       </form>
     </div>
-    <div v-if="loginStep === 4">
+    <div name="Register step 4" v-if="loginStep === 4">
       <form @submit.prevent="loginStep = 5">
         <h3>Telefonnummer</h3>
         <p>Bestätigungscode an Ihr Smartphone senden</p>
         <div>
-          <input v-model="newuserNummer" id="Number" type="number" placeholder="Telefonnummer" required />
+          <input v-model="newuserNummer" id="Number" type="number" placeholder="Telefonnummer" minlength="10" maxlength="16" required />
+          <!-- <span id="errorMessage"></span> -->
         </div>
         <button type="submit" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Weiter</button>
       </form>
     </div>
-    <div v-if="loginStep === 5">
+    <div name="Register step 5" v-if="loginStep === 5">
       <form @submit.prevent="createUser(), (logedInUserID = newuserID), (loginStep = 6)">
         <h3>E-Mail</h3>
         <p>Bitte bestätigen sie ihre Email</p>
@@ -151,12 +135,12 @@ function checkIfExist() {
   loadUserData();
   console.log('User Mail', userLoginEmail.value);
   console.log('User ', users.value);
-  if (users.value.find(user => user.Email === userLoginEmail.value)) {
+  if (users.value.find(user => user.Email.toLowerCase() === userLoginEmail.value.toLowerCase())) {
     console.log('Email does exist');
     // return true;
-    if (users.value.find(user => user.Email === userLoginEmail.value)?.Passwort === userLoginPassword.value) {
+    if (users.value.find(user => user.Email.toLowerCase() === userLoginEmail.value.toLowerCase())?.Passwort === userLoginPassword.value) {
       console.log('Password is a match');
-      logedInUserID.value = users.value.find(user => user.Email === userLoginEmail.value)?.ID;
+      logedInUserID.value = users.value.find(user => user.Email.toLowerCase() === userLoginEmail.value.toLowerCase())?.ID;
       loginStep.value = 6;
     } else {
       console.log('Password is not a match');
