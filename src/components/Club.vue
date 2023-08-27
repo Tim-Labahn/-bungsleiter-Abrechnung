@@ -14,10 +14,24 @@
       "
     >
       <div class="JoinAClub">
-        <button>Join a Club</button>
+        <button
+          @click="
+            JoinAClub = true;
+            CreateAClub = false;
+          "
+        >
+          Join a Club
+        </button>
       </div>
       <div class="CreateAClub">
-        <button @click="CreateAClub = true">Create a Club</button>
+        <button
+          @click="
+            CreateAClub = true;
+            JoinAClub = false;
+          "
+        >
+          Create a Club
+        </button>
       </div>
     </div>
     <div
@@ -32,7 +46,16 @@
         text-align: center;
       "
     >
-      Club management
+      <h2>Club management</h2>
+      <div v-if="CreateAClub">
+        <h3>Create Club</h3>
+        <label for="Clubname">Club name:</label>
+        <input name="ClubName" placeholder="Enter Name Here" />
+      </div>
+      <div v-if="JoinAClub">
+        <h3>Join A Club</h3>
+        <div v-for="club in clubs">T</div>
+      </div>
     </div>
   </div>
 </template>
@@ -57,6 +80,7 @@ export default {
     return {
       CreateAClub: false,
       JoinAClub: false,
+      clubs: clubs,
     };
   },
 };
