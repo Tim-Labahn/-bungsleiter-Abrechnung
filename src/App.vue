@@ -8,6 +8,7 @@
           <tr>
             <a id="Home" @click="route = 'home'">Home</a>
             <a id="Form" @click="route = 'form'">Form</a>
+            <a id="Form" @click="route = 'club'">Club</a>
           </tr>
         </td>
         <td>
@@ -16,11 +17,11 @@
           </tr>
         </td>
         <td>
-          <tr v-if="!logedIn">
+          <tr v-if="!logedInUserID">
             <a id="Login" @click="route = 'login'">Login</a>
           </tr>
-          <tr v-else-if="logedIn">
-            <a id="Logout" @click="route = 'logout'">Logout</a>
+          <tr v-else-if="logedInUserID">
+            <a id="Logout" @click="(route = 'home'), (logedInUserID = undefined)">Logout</a>
           </tr>
         </td>
       </table>
@@ -38,6 +39,9 @@
     <div v-if="route === 'account'">
       <Account></Account>
     </div>
+    <div v-if="route === 'club'">
+      <Club></Club>
+    </div>
   </div>
 </template>
 
@@ -47,8 +51,10 @@ import Form from './components/Form.vue';
 import Home from './components/Home.vue';
 import Login from './components/Login.vue';
 import Account from './components/Account.vue';
+import Club from './components/Club.vue';
+import { logedInUserID } from './userInformation';
+
 const route = ref('home');
-const logedIn = false;
 </script>
 
 <style scoped>

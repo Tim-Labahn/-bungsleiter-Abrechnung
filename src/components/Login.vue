@@ -21,9 +21,9 @@
         <div>
           <input v-model="userLoginPassword" type="password" placeholder="Password" required />
         </div>
-        <button type="submit" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Weiter</button>
+        <button type="submit">Weiter</button>
       </form>
-      <button @click="loginStep = 1" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Neuen Account erstellen</button>
+      <button @click="loginStep = 1">Neuen Account erstellen</button>
     </div>
     <div name="Register step 1" v-if="loginStep === 1">
       <h3>SportButler-Konto ersellen</h3>
@@ -35,7 +35,7 @@
         <div>
           <input v-model="newuserLastName" type="text" placeholder="Nachname" required />
         </div>
-        <button type="submit" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Weiter</button>
+        <button type="submit">Weiter</button>
       </form>
     </div>
     <div name="Register step 2" v-if="loginStep === 2">
@@ -57,7 +57,7 @@
             <option value="Divers">Divers</option>
           </select>
         </div>
-        <button type="submit" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Weiter</button>
+        <button type="submit">Weiter</button>
       </form>
     </div>
     <div name="Register step 3" v-if="loginStep === 3">
@@ -70,7 +70,7 @@
         <div>
           <input type="password" placeholder="Bestätiigen" required :pattern="newuserPasswort" />
         </div>
-        <button type="submit" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Weiter</button>
+        <button type="submit">Weiter</button>
       </form>
     </div>
     <div name="Register step 4" v-if="loginStep === 4">
@@ -81,7 +81,7 @@
           <input v-model="newuserNummer" id="Number" type="number" placeholder="Telefonnummer" minlength="10" maxlength="16" required />
           <!-- <span id="errorMessage"></span> -->
         </div>
-        <button type="submit" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Weiter</button>
+        <button type="submit">Weiter</button>
       </form>
     </div>
     <div name="Register step 5" v-if="loginStep === 5">
@@ -91,7 +91,7 @@
         <div>
           <input v-model="newuserEMail" id="newuserEMail" type="email" placeholder="E-Mail" required />
         </div>
-        <button type="submit" style="background-color: #213547; color: whitesmoke; border-radius: 4px">Weiter</button>
+        <button type="submit">Weiter</button>
       </form>
     </div>
     <div v-if="loginStep === 6">
@@ -128,6 +128,7 @@ function createUser() {
     Gender: newuserGender.value,
     Passwort: newuserPasswort.value ?? '',
     Email: newuserEMail.value ?? '',
+    Clubs: [],
   });
   loadLocalStorage();
 }

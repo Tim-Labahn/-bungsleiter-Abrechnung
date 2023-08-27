@@ -226,13 +226,8 @@ td input {
   border: 1px solid #213547;
   width: 100%;
 }
-
 button {
   height: 25px;
   width: 30px;
-  background-color: #213547;
-  color: #ffffff;
-  border: 1px solid #213547;
-  border-radius: 20px 20px 20px 20px;
 }
 </style>
