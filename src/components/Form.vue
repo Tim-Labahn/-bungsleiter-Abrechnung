@@ -154,7 +154,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue';
- const currentDate = new Date();
+const currentDate = new Date();
 const registeredAssociation = ref('Kreissportverband Segeberg e.V');
 const idNumber = ref(0);
 const hoursTogetherNumber = ref(0);
@@ -172,6 +172,7 @@ const entries = ref<
 >([]);
 
 watch(entries, checkHours, { deep: true });
+
 function checkHours() {
   hoursTogether();
   hoursUnder();
