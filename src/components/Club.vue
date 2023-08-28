@@ -1,4 +1,6 @@
-<template>
+
+<
+emplate>
   <div>
     <div
       style="
@@ -51,7 +53,9 @@
         <h3>Create Club</h3>
         <label for="Clubname">Club name:</label>
         <input name="ClubName" placeholder="Enter Name Here" />
-      </div>
+
+<input names="ClubSportArt" placeholder="Enter the clubs Sportart Here">
+     </div>
       <div v-if="JoinAClub">
         <h3>Join A Club</h3>
         <div v-for="club in clubs">T</div>
