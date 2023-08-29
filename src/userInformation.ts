@@ -7,13 +7,13 @@ export type UserType = {
   Gender: string;
   Passwort: string;
   Email: string;
-  Clubs: Array<string>;
+  Clubs: string[];
 };
 
 export type ClubType = {
   Name: string;
   MitgliederAnzahl: number | null | undefined;
-  Mitglieder: Array<number> | null | undefined;
+  Mitglieder: number[] | null | undefined;
   SportArt: string;
 };
 

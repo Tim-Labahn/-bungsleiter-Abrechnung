@@ -130,7 +130,7 @@ function createUser() {
     Email: newuserEMail.value ?? '',
     Clubs: [],
   });
-  loadLocalStorage();
+  setLocalStorage();
 }
 function checkIfExist() {
   loadUserData();
@@ -149,7 +149,7 @@ function checkIfExist() {
   } else {
     console.log('Email does not exist');
   }
-  loadLocalStorage();
+  setLocalStorage();
 }
 
 function loadUserData() {
@@ -158,10 +158,10 @@ function loadUserData() {
     console.log('loaded1');
   }
   console.log('loaded2');
-  loadLocalStorage();
+  setLocalStorage();
 }
 
-function loadLocalStorage() {
+function setLocalStorage() {
   localStorage.setItem('Users', JSON.stringify(users.value));
 }
 

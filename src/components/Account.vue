@@ -5,13 +5,13 @@
       <div
         style="
           position: absolute;
-          margin-left: -700px;
-          margin-top: -250px;
+          margin-left: -710px;
+          margin-top: -230px;
           border: 1px solid #213547;
           background-color: whitesmoke;
-          border-radius: 30px;
+          border-radius: 0px 30px 30px 0px;
           width: 200px;
-          height: 870px;
+          height: 830px;
           font-size: larger;
           text-align: left;
         "
@@ -40,8 +40,8 @@
           <h2 style="text-align: center">Abmelden</h2>
           <div>Sind sie sicher das sie sich abmelden wollen?</div>
 
-          <button style="border-radius: 5px; background-color: whitesmoke" @click="logedInUserID = undefined">Abmelden</button>
-          <button style="margin-left: 50px; border-radius: 5px; background-color: whitesmoke" @click="logOutUser = false">Abbrechen</button>
+          <button @click="logedInUserID = undefined">Abmelden</button>
+          <button style="margin-left: 50px" @click="logOutUser = false">Abbrechen</button>
         </div>
       </div>
 

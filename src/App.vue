@@ -1,7 +1,7 @@
 <template>
-  <img class="backgroundImage" src="SportButler_Logo.png" />
+  <img class="backgroundImage" src="/SportButler_Logo.png" />
   <div style="margin-top: 120px">
-    <img class="logo" src="SportButler_Logo_Smal_White.png" style="width: 50px; position: absolute; top: 10px; left: 120px; height: auto" />
+    <img class="logo" src="/SportButler_Logo_Smal_White.png" style="width: 50px; position: absolute; top: 10px; left: 120px; height: auto" />
     <div class="header">
       <table>
         <td>
@@ -26,7 +26,7 @@
         </td>
       </table>
     </div>
-    <img class="headImage" src="background.png" />
+    <img class="headImage" src="/background.png" />
     <div v-if="route === 'home'">
       <Home></Home>
     </div>
