@@ -51,7 +51,7 @@
       <div v-if="CreateAClub">
         <h3>Create Club</h3>
         <table style="width: 1200px; margin-left: 150px">
-          <div name="Table Head" style="border: 1px solid #213547; border-radius: 10px">
+          <div name="Table Head" style="border: 1px solid #213547; border-radius: 10px 0px 0px 0px">
             <tr>
               <th colspan="3" style="width: 300px">
                 <label for="Clubname">Club name:</label>
